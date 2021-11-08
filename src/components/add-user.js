@@ -41,7 +41,6 @@ const AddUser = () => {
   };
 
   const submitHandler = (event) => {
-    event.preventDefault();
     updateData();
   };
 

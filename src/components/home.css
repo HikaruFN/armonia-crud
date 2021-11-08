@@ -1,17 +1,19 @@
-.add-user-container{
-  margin-bottom: 50px;
+.header-container {
+  text-align: center;
 }
-.add-user-container h1 {
-  color: red;
+.sider-item-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.item-card{
+.item-card {
   margin-top: 20px;
 }
-.item-card .item-card__info{
+.item-card .item-card__info {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.item-card .item-card__operations .item-card__button{
+.item-card .item-card__operations .item-card__button {
   margin-right: 10px;
 }
