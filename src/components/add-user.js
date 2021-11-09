@@ -41,6 +41,7 @@ const AddUser = () => {
   };
 
   const submitHandler = (event) => {
+    event.preventDefault();
     updateData();
   };
 
@@ -49,9 +50,14 @@ const AddUser = () => {
       <h1>Add user</h1>
       <form action="/">
         <label>Name </label>
-        <input onChange={trackName} value={newUser.name} type="text" placeholder="Insert name..." />
+        <input
+          onChange={trackName}
+          value={newUser.name}
+          type="text"
+          placeholder="Insert name..."
+        />
         <label>Age </label>
-        <input onChange={trackAge} type="number" placeholder="Insert age..."/>
+        <input onChange={trackAge} type="number" placeholder="Insert age..." />
         <label>job </label>
         <input onChange={trackJob} type="text" placeholder="Insert job..." />
         <button onClick={submitHandler} type="submit">
