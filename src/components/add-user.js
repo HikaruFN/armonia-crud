@@ -60,7 +60,7 @@ const AddUser = () => {
   return (
     <div>
       <Layout>
-        <Header className="header-container">
+        <Header className="header-container__add-user">
           <Title type="success">Add user</Title>
         </Header>
 
@@ -72,25 +72,13 @@ const AddUser = () => {
             initialValues={{ remember: true }}
             autoComplete="off"
           >
-            <Form.Item
-              label="Name"
-              name="name"
-              rules={[{ required: true, message: "Please input your name!" }]}
-            >
+            <Form.Item label="Name" name="name">
               <Input onChange={trackName} />
             </Form.Item>
-            <Form.Item
-              label="Job"
-              name="job"
-              rules={[{ required: true, message: "Please input your job!" }]}
-            >
+            <Form.Item label="Job" name="job">
               <Input onChange={trackJob} />
             </Form.Item>
-            <Form.Item
-              label="Age"
-              name="age"
-              rules={[{ required: true, message: "Please input your age!" }]}
-            >
+            <Form.Item label="Age" name="age">
               <Input onChange={trackAge} />
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
