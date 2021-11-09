@@ -1,7 +1,7 @@
 import axios from "axios";
 import "./home.css";
 import "antd/dist/antd.css";
-import { Layout, Button, Typography } from "antd";
+import { Layout, Button, Typography, Card, Space } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 const { Title } = Typography;
@@ -54,22 +54,32 @@ const Home = () => {
           <Content>
             {datas.map((item, index) => {
               return (
-                <div className="item-card" key={index}>
-                  <span>Name: {item.name}</span>
-                  <span>Age: {item.age}</span>
-                  <span>Job: {item.job}</span>
+                <Card>
+                  <div className="item-card" key={index}>
+                    <Card title={`Users ${index}`}>
+                      <Space>
+                        <span>Name: {item.name}</span>
+                        <span>Age: {item.age}</span>
+                        <span>Job: {item.job}</span>
+                      </Space>
+                    </Card>
 
-                  <Button className="item-card__button" type="primary">
-                    <EditOutlined />
-                  </Button>
-                  <Button
-                    onClick={() => handleDelete(item.id)}
-                    className="item-card__button"
-                    type="danger"
-                  >
-                    <DeleteOutlined />
-                  </Button>
-                </div>
+                    <Card>
+                      <Space>
+                        <Button size="large" type="primary">
+                          <EditOutlined />
+                        </Button>
+                        <Button
+                          onClick={() => handleDelete(item.id)}
+                          size="large"
+                          type="danger"
+                        >
+                          <DeleteOutlined />
+                        </Button>
+                      </Space>
+                    </Card>
+                  </div>
+                </Card>
               );
             })}
           </Content>
