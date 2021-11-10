@@ -75,25 +75,13 @@ const EditUser = () => {
             onFinish={onFinish}
           >
             <Form.Item label="New Name" name="name">
-              <Input
-                placeholder={datas.name}
-                onChange={trackName}
-                value={datas.name}
-              />
+              <Input onChange={trackName} defaultValue={datas.name} />
             </Form.Item>
             <Form.Item label="New Job" name="job">
-              <Input
-                placeholder={datas.job}
-                onChange={trackJob}
-                value={datas.job}
-              />
+              <Input onChange={trackJob} defaultValue={datas.job} />
             </Form.Item>
             <Form.Item label="New Age" name="age">
-              <Input
-                placeholder={datas.age}
-                onChange={trackAge}
-                value={datas.age}
-              />
+              <Input onChange={trackAge} defaultValue={datas.age} />
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
               <Button type="primary" htmlType="submit">
