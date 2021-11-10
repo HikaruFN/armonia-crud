@@ -3,7 +3,6 @@ import axios from "axios";
 import "./add-user.css";
 import { useParams } from "react-router";
 import { Layout, Input, Button, Form } from "antd";
-import { placeholder } from "@babel/types";
 const { Header, Content } = Layout;
 
 const AddUser = () => {
@@ -11,17 +10,18 @@ const AddUser = () => {
   const params = useParams();
 
   /*Settng state for EDIT*/
-  const [datas, setData] = useState();
+  const [datas, setData] = useState({});
 
   const getData = async () => {
     const response = await axios.get(
       `https://5db179198087400014d38a73.mockapi.io/api/v1/users/${params.id}`
     );
-    setData(response.data);
+    setData({ ...response.data });
   };
 
   useEffect(() => {
     getData();
+    console.log(datas);
   }, []);
 
   /*Settng state for ADD*/
@@ -60,6 +60,7 @@ const AddUser = () => {
       ...datas,
       name: event.target.value,
     });
+    console.log(datas);
   };
 
   const trackEditAge = (event) => {
@@ -118,43 +119,30 @@ const AddUser = () => {
             name="basic"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 8 }}
-            initialValues={{ remember: true }}
-            autoComplete="off"
             onFinish={onFinish}
+            initialValues={{ name: datas.name }}
           >
-            <Form.Item label="Name" name="name">
-              {params.add ? (
-                /*ADD*/
-                <Input onChange={trackName} />
-              ) : (
-                /*EDIT*/
-                datas && (
-                  <Input onChange={trackEditName} defaultValue={datas.name} />
-                )
-              )}
+            <Form.Item key={datas.name || "name"} label="Name" name="name">
+              <Input
+                onChange={trackEditName || trackName}
+                defaultValue={datas.name || " "}
+              />
             </Form.Item>
-            <Form.Item label="Job" name="job">
-              {params.add ? (
-                /*ADD*/
-                <Input onChange={trackJob} />
-              ) : (
-                /*EDIT*/
-                datas && (
-                  <Input onChange={trackEditJob} defaultValue={datas.job} />
-                )
-              )}
+
+            <Form.Item key={datas.age || "age"} label="Age" name="age">
+              <Input
+                onChange={trackEditAge || trackAge}
+                defaultValue={datas.age || " "}
+              />
             </Form.Item>
-            <Form.Item label="Age" name="age">
-              {params.add ? (
-                /*ADD*/
-                <Input onChange={trackAge} />
-              ) : (
-                /*EDIT*/
-                datas && (
-                  <Input onChange={trackEditAge} defaultValue={datas.age} />
-                )
-              )}
+
+            <Form.Item key={datas.job || "job"} label="Job" name="job">
+              <Input
+                onChange={trackEditJob || trackName}
+                defaultValue={datas.job || " "}
+              />
             </Form.Item>
+
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
               <Button
                 onClick={params.add ? submitHandler : onFinish}
