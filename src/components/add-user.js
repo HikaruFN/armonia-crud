@@ -1,18 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./add-user.css";
-import {
-  Layout,
-  Typography,
-  Card,
-  Space,
-  Input,
-  Button,
-  Checkbox,
-  Form,
-} from "antd";
+import { Layout, Typography, Input, Button, Form } from "antd";
 const { Title } = Typography;
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
 
 const AddUser = () => {
   const [newUser, setNewUser] = useState({
