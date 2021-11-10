@@ -10,10 +10,20 @@ import {
   Checkbox,
   Form,
 } from "antd";
+import { useState } from "react/cjs/react.development";
 const { Title } = Typography;
 const { Header, Content, Sider } = Layout;
 
 const EditUser = () => {
+ 
+  const [ data, setData ] = useState();
+
+  const getData = async () => {
+    const response = await axios.get
+    ("") 
+  }
+
+
   return (
     <Layout>
       <Header className="header-container__edit-user">
