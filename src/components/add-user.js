@@ -51,8 +51,10 @@ const AddUser = () => {
   return (
     <div>
       <Layout>
-        <Header className="header-container__add-user">
-          <Title type="success">Add user</Title>
+        <Header>
+          <Button type="primary" href="/">
+            Back to Home
+          </Button>
         </Header>
 
         <Content>

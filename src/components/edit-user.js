@@ -60,7 +60,9 @@ const EditUser = () => {
   return (
     <Layout>
       <Header className="header-container__edit-user">
-        <Title type="success">Edit user</Title>
+        <Button type="primary" href="/">
+          Back to Home
+        </Button>
       </Header>
       <Content>
         {datas && (
