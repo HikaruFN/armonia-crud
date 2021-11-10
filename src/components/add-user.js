@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./add-user.css";
 import { useParams } from "react-router";
-import { Layout, Typography, Input, Button, Form } from "antd";
-const { Title } = Typography;
+import { Layout, Input, Button, Form } from "antd";
+import { placeholder } from "@babel/types";
 const { Header, Content } = Layout;
 
 const AddUser = () => {
+  /*Getting params*/
+  const params = useParams();
+
+  /*Settng state for EDIT*/
   const [datas, setData] = useState();
 
   const getData = async () => {
@@ -20,8 +24,7 @@ const AddUser = () => {
     getData();
   }, []);
 
-  const params = useParams();
-
+  /*Settng state for ADD*/
   const [newUser, setNewUser] = useState({
     id: Math.random(),
     name: "",
@@ -73,6 +76,7 @@ const AddUser = () => {
     });
   };
 
+  /*Create new item POST*/
   const newData = async () => {
     const response = await axios.post(
       "https://5db179198087400014d38a73.mockapi.io/api/v1/users",
@@ -80,11 +84,12 @@ const AddUser = () => {
     );
     window.location.replace("/");
   };
-
+  /*Submit Create new item POST*/
   const submitHandler = (event) => {
     newData();
   };
 
+  /*Create new item PUT*/
   const updateData = async () => {
     const response = await axios.put(
       `https://5db179198087400014d38a73.mockapi.io/api/v1/users/${params.id}`,
@@ -94,13 +99,12 @@ const AddUser = () => {
     );
     window.location.replace(`/`);
   };
-
+  /*submit new item PUT*/
   const onFinish = () => {
     updateData();
   };
 
-  return params.add ? (
-    /*Rendered if /add */
+  return (
     <div>
       <Layout>
         <Header>
@@ -116,18 +120,47 @@ const AddUser = () => {
             wrapperCol={{ span: 8 }}
             initialValues={{ remember: true }}
             autoComplete="off"
+            onFinish={onFinish}
           >
             <Form.Item label="Name" name="name">
-              <Input onChange={trackName} />
+              {params.add ? (
+                /*ADD*/
+                <Input onChange={trackName} />
+              ) : (
+                /*EDIT*/
+                datas && (
+                  <Input onChange={trackEditName} defaultValue={datas.name} />
+                )
+              )}
             </Form.Item>
             <Form.Item label="Job" name="job">
-              <Input onChange={trackJob} />
+              {params.add ? (
+                /*ADD*/
+                <Input onChange={trackJob} />
+              ) : (
+                /*EDIT*/
+                datas && (
+                  <Input onChange={trackEditJob} defaultValue={datas.job} />
+                )
+              )}
             </Form.Item>
             <Form.Item label="Age" name="age">
-              <Input onChange={trackAge} />
+              {params.add ? (
+                /*ADD*/
+                <Input onChange={trackAge} />
+              ) : (
+                /*EDIT*/
+                datas && (
+                  <Input onChange={trackEditAge} defaultValue={datas.age} />
+                )
+              )}
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-              <Button onClick={submitHandler} type="primary" htmlType="submit">
+              <Button
+                onClick={params.add ? submitHandler : onFinish}
+                type="primary"
+                htmlType="submit"
+              >
                 Submit
               </Button>
             </Form.Item>
@@ -135,42 +168,6 @@ const AddUser = () => {
         </Content>
       </Layout>
     </div>
-  ) : (
-    /*Rendered in /Edit/id*/
-    <Layout>
-      <Header className="header-container__edit-user">
-        <Button type="primary" href="/">
-          Back to Home
-        </Button>
-      </Header>
-      <Content>
-        {datas && (
-          <Form
-            name="basic"
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 8 }}
-            initialValues={{ remember: true }}
-            autoComplete="off"
-            onFinish={onFinish}
-          >
-            <Form.Item label="New Name" name="name">
-              <Input onChange={trackEditName} defaultValue={datas.name} />
-            </Form.Item>
-            <Form.Item label="New Job" name="job">
-              <Input onChange={trackEditJob} defaultValue={datas.job} />
-            </Form.Item>
-            <Form.Item label="New Age" name="age">
-              <Input onChange={trackEditAge} defaultValue={datas.age} />
-            </Form.Item>
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
-        )}
-      </Content>
-    </Layout>
   );
 };
 
