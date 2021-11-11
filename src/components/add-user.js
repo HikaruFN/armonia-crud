@@ -6,11 +6,12 @@ import { Layout, Input, Button, Form } from "antd";
 const { Header, Content } = Layout;
 
 const AddUser = () => {
+  const [form] = Form.useForm();
   /*Getting params*/
   const params = useParams();
 
   /*Settng state for EDIT*/
-  const [datas, setData] = useState({});
+  const [datas, setData] = useState({ name: "name", age: "age", job: "job" });
 
   const getData = async () => {
     const response = await axios.get(
@@ -20,9 +21,18 @@ const AddUser = () => {
   };
 
   useEffect(() => {
-    getData();
-    console.log(datas);
+    if (params.edit) {
+      getData();
+    }
   }, []);
+
+  useEffect(() => {
+    form.setFieldsValue({
+      name: datas.name,
+      age: datas.age,
+      job: datas.job,
+    });
+  }, [datas]);
 
   /*Settng state for ADD*/
   const [newUser, setNewUser] = useState({
@@ -116,31 +126,22 @@ const AddUser = () => {
 
         <Content>
           <Form
+            form={form}
             name="basic"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 8 }}
             onFinish={onFinish}
-            initialValues={{ name: datas.name }}
           >
-            <Form.Item key={datas.name || "name"} label="Name" name="name">
-              <Input
-                onChange={trackEditName || trackName}
-                defaultValue={datas.name || " "}
-              />
+            <Form.Item label="Name" name="name">
+              <Input onChange={trackEditName || trackName} />
             </Form.Item>
 
-            <Form.Item key={datas.age || "age"} label="Age" name="age">
-              <Input
-                onChange={trackEditAge || trackAge}
-                defaultValue={datas.age || " "}
-              />
+            <Form.Item label="Age" name="age">
+              <Input onChange={trackEditAge || trackAge} />
             </Form.Item>
 
-            <Form.Item key={datas.job || "job"} label="Job" name="job">
-              <Input
-                onChange={trackEditJob || trackName}
-                defaultValue={datas.job || " "}
-              />
+            <Form.Item label="Job" name="job">
+              <Input onChange={trackEditJob || trackName} />
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
