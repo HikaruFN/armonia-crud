@@ -27,11 +27,12 @@ const AddUser = () => {
   }, []);
 
   useEffect(() => {
-    form.setFieldsValue({
-      name: datas.name,
-      age: datas.age,
-      job: datas.job,
-    });
+    if (params.edit)
+      form.setFieldsValue({
+        name: datas.name,
+        age: datas.age,
+        job: datas.job,
+      });
   }, [datas]);
 
   /*Settng state for ADD*/
@@ -133,15 +134,15 @@ const AddUser = () => {
             onFinish={onFinish}
           >
             <Form.Item label="Name" name="name">
-              <Input onChange={trackEditName || trackName} />
+              <Input onChange={params.edit ? trackEditName : trackName} />
             </Form.Item>
 
             <Form.Item label="Age" name="age">
-              <Input onChange={trackEditAge || trackAge} />
+              <Input onChange={params.edit ? trackEditAge : trackAge} />
             </Form.Item>
 
             <Form.Item label="Job" name="job">
-              <Input onChange={trackEditJob || trackName} />
+              <Input onChange={params.edit ? trackEditJob : trackJob}/>
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
